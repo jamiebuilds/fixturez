@@ -15,7 +15,8 @@ type Opts = {
 };
 */
 
-function fixturez(cwd /*: string */, opts /*: Opts */ = {}) {
+function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
+  opts = opts || {};
   let glob = opts.glob || '{fixtures,__fixtures__}/*';
   let autoCleanup = typeof opts.cleanup === 'boolean' ? opts.cleanup : true;
   let rootDir = opts.root || '/';
