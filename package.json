@@ -1,6 +1,6 @@
 {
   "name": "fixturez",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easily create and maintain test fixtures in the file system",
   "main": "index.js",
   "repository": "thejameskyle/fixturez",
