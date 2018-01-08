@@ -40,6 +40,16 @@ test('f.copy() with file', t => {
   t.truthy(fs.lstatSync(f.copy('baz.txt')).isFile());
 });
 
+test('f.copy() with directory returns realpath', t => {
+  let dir = f.copy('bar');
+  t.is(dir, fs.realpathSync(dir));
+});
+
+test('f.copy() with file returns realpath', t => {
+  let file = f.copy('baz.txt');
+  t.is(file, fs.realpathSync(file));
+});
+
 test('f.cleanup()', t => {
   let file = f.copy('baz.txt');
   t.truthy(fs.lstatSync(file).isFile());

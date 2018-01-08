@@ -66,7 +66,7 @@ function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
     created.push(temp);
     let dest = path.join(temp, name);
     fsExtra.copySync(match, dest);
-    return dest;
+    return fsExtra.realpathSync(dest);;
   }
 
   function cleanup() {
