@@ -60,13 +60,16 @@ function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
 
   let created = [];
 
+  function temp() /*: string */ {
+    let tempDir = fsExtra.realpathSync(tempy.directory());
+    created.push(tempDir);
+    return tempDir;
+  }
+
   function copy(name /*: string */) /*: string */ {
-    let match = find(name);
-    let temp = tempy.directory();
-    created.push(temp);
-    let dest = path.join(temp, name);
-    fsExtra.copySync(match, dest);
-    return fsExtra.realpathSync(dest);;
+    let dest = path.join(temp(), name);
+    fsExtra.copySync(find(name), dest);
+    return dest;
   }
 
   function cleanup() {
@@ -88,6 +91,7 @@ function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
 
   return {
     find,
+    temp,
     copy,
     cleanup,
   };

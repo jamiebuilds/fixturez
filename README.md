@@ -87,6 +87,14 @@ let tempDir = f.copy('directory');
 let tempFile = f.copy('file.txt');
 ```
 
+### `f.temp()`
+
+Create an empty temporary directory.
+
+```js
+let tempDir = f.temp();
+```
+
 ### `f.cleanup()`
 
 Deletes any temporary files you created. This will automatically be called when

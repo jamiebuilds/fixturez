@@ -28,6 +28,11 @@ test('f.find() throw on no match', t => {
   });
 });
 
+test('f.temp()', t => {
+  console.log(f.temp())
+  t.truthy(fs.lstatSync(f.temp()).isDirectory());
+});
+
 test('f.copy() with directory', t => {
   let dir = f.copy('bar');
   t.truthy(fs.lstatSync(path.join(dir, 'symlink-to-file')).isSymbolicLink());
