@@ -1,36 +1,38 @@
-// @flow
 'use strict';
-const tempDir = require('temp-dir');
 const tempy = require('tempy');
 const path = require('path');
 const fsExtra = require('fs-extra');
-const onExit = require('signal-exit');
+const { onExit } = require('signal-exit');
 const globby = require('globby');
 
-/*::
-type Opts = {
-  glob?: string | Array<string>,
-  root?: string,
-  cleanup?: boolean,
-};
-*/
+/**
+ * @typedef {Object} Opts
+ * @property {string | ReadonlyArray<string>} [glob]
+ * @property {string} [root]
+ * @property {boolean} [cleanup]
+ */
 
-function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
-  opts = opts || {};
+/**
+ * @param {string} cwd
+ * @param {Opts} [opts]
+ */
+function fixturez(cwd, opts = {}) {
   let glob = opts.glob || '{fixtures,__fixtures__}/*';
   let autoCleanup = typeof opts.cleanup === 'boolean' ? opts.cleanup : true;
   let rootDir = opts.root || '/';
 
-  function find(name /*: string */) /*: string */ {
+  /**
+   * @param {string} name
+   * @returns {string}
+   */
+  function find(name) {
     let search = cwd;
     let match;
 
     do {
       let paths = globby.sync(glob, {
         cwd: search,
-        root: search,
-        nodir: false,
-        realpath: true,
+        onlyFiles: false,
       });
 
       let matches = paths.filter(filePath => {
@@ -58,15 +60,23 @@ function fixturez(cwd /*: string */, opts /*: Opts */ /*:: = {} */) {
     return match;
   }
 
+  /** @type {string[]} */
   let created = [];
 
-  function temp() /*: string */ {
+  /**
+   * @returns {string}
+   */
+  function temp() {
     let tempDir = fsExtra.realpathSync(tempy.directory());
     created.push(tempDir);
     return tempDir;
   }
 
-  function copy(name /*: string */) /*: string */ {
+  /**
+   * @param {string} name
+   * @returns {string}
+   */
+  function copy(name) {
     let dest = path.join(temp(), name);
     fsExtra.copySync(find(name), dest);
     return dest;
