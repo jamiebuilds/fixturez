@@ -1,5 +1,4 @@
 'use strict';
-const tempDir = require('temp-dir');
 const tempy = require('tempy');
 const path = require('path');
 const fsExtra = require('fs-extra');
