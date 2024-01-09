@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "allowJs": true,
+        "checkJs": true,
+        "moduleResolution": "Node16",
+        "module": "Node16",
+        "outDir": "./types",
+        "declaration": true,
+        "emitDeclarationOnly": true
+    },
+    "include": ["index.js"]
+}
